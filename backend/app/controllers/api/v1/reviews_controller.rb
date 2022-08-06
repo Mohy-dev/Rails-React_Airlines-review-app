@@ -1,8 +1,7 @@
 module Api
   module V1
     class ReviewsController < ApplicationController
-      skip_before_action :verify_authenticity_token
-
+      protect_from_forgery with: :null_session
 
       # Create a review
       def create
@@ -38,7 +37,7 @@ module Api
 
       # fast_jsonapi serializer
       def serializer(records, options = {})
-        AirlineSerializer.new(records, options).serialized_json
+        ReviewSerializer.new(records, options).serialized_json
       end
 
       # Errors
